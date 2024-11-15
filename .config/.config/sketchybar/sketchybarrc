@@ -1,0 +1,38 @@
+#!/bin/bash
+
+source "$CONFIG_DIR/colors.sh" # Loads all defined colors
+source "$CONFIG_DIR/icons.sh" # Loads all defined icons
+
+ITEM_DIR="$CONFIG_DIR/items" # Directory where the items are configured
+PLUGIN_DIR="$CONFIG_DIR/plugins" # Directory where all the plugin scripts are stored
+
+# Bar Appearance
+sketchybar --bar position=top height=32 blur_radius=30 color=$COLOR_BACKGROUND
+
+# Defaults 
+default=(
+  padding_left=5
+  padding_right=5
+  icon.font="JetbrainsMono Nerd Font:Bold:14.0"
+  label.font="JetbrainsMono Nerd Font:Bold:14.0"
+  icon.color=$COLOR_WHITE_BRIGHT
+  label.color=$COLOR_WHITE_BRIGHT
+  icon.padding_left=4
+  icon.padding_right=4
+  label.padding_left=4
+  label.padding_right=4
+)
+sketchybar --default "${default[@]}"
+
+# Left
+source "$ITEM_DIR/spaces.sh"
+source "$ITEM_DIR/front_app.sh"
+
+# Right
+source "$ITEM_DIR/clock.sh"
+source "$ITEM_DIR/volume.sh"
+source "$ITEM_DIR/battery.sh"
+
+
+# Force all scripts to run the first time (never do this in a script)
+sketchybar --update
